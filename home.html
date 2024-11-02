@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Twitter API Usage Guide with Tweepy</title>
+  </head>
+  <body>
+    <nav id="navbar">
+      <header>Twitter API Usage Guide with Tweepy</header>
+      <p><a class="nav-link" href="#introduction">Introduction</a></p>
+        <p><a class="nav-link" href="#installation">Installation</a></p>
+        <p><a class="nav-link" href="#initial_setup">Initial Setup</a></p>
+        <p><a class="nav-link" href="#posting_a_tweet">Posting a Tweet</a></p>
+        <p><a class="nav-link" href="#searching_for_tweets">Searching for Tweets</a></p>
+        <p><a class="nav-link" href="#error_handling">Error Handling</a></p>
+        <p><a class="nav-link" href="#reference">Reference</a></li>
+      
+    </nav>
+
+    <main id="main-doc">
+      <section class="main-section" id="introduction">
+        <header>Introduction</header>
+        <p>
+          In today's digital world, social media plays a vital role in
+          communication, trend analysis, and audience engagement. Among the most
+          influential platforms, Twitter stands out for its ability to
+          disseminate information quickly and facilitate real-time interactions.
+          For developers and data analysts, accessing and manipulating this
+          Twitter data is essential for a variety of applications.
+        </p>
+        <p>
+          This is where the Twitter API comes into play, allowing developers to
+          programmatically interact with the platform. Using the powerful Python
+          library called Tweepy, the complexity of communicating with the
+          Twitter API is significantly reduced, making the process more
+          efficient and accessible. In this article, we will explore how Tweepy
+          can be used to collect, analyze, and publish data on Twitter,
+          highlighting its main features and providing practical examples for
+          beginners and professionals alike.
+        </p>
+      </section>
+      <section class="main-section" id="installation">
+        <header>Installation</header>
+        <p>
+          To get started, you need to install the tweepy library. It can be
+          easily installed via pip, the Python package manager. Run the
+          following command in your terminal:
+        </p>
+        <code>pip install tweepy </code>
+        <p>
+          Installing tweepy downloads and sets up all necessary dependencies for
+          you to interact with the Twitter API. Make sure you have Python
+          installed on your system before proceeding.
+        </p>
+      </section>
+      <section class="main-section" id="initial_setup">
+        <header>Initial Setup</header>
+        <p>
+          Before you can start using the API, you need to create an application
+          on the Twitter Developer Portal to obtain your API credentials. These
+          credentials are essential for authenticating your application with the
+          Twitter API.
+        </p>
+        <p>After creating your application, you will receive:</p>
+        <ul>
+          <li>Consumer Key</li>
+          <li>Consumer Secret</li>
+          <li>Access Token</li>
+          <li>Access Token Secret</li>
+          <li>Bearer Token (optional for certain types of requests)</li>
+        </ul>
+        <p>
+          Use these credentials to set up your authentication with tweepy.
+          Here's an example of how to configure them:
+        </p>
+        <code>import tweepy # Credential setup consumer_key = 'YOUR_CONSUMER_KEY'
+          consumer_secret = 'YOUR_CONSUMER_SECRET' access_token =
+          'YOUR_ACCESS_TOKEN' access_token_secret = 'YOUR_ACCESS_TOKEN_SECRET'
+          auth = tweepy.OAuth1UserHandler(consumer_key, consumer_secret,
+          access_token, access_token_secret) api = tweepy.API(auth)
+        </code>
+        <p>
+          The OAuth1UserHandler class manages the authentication flow. Once you
+          have set up the authentication, you can access the API using the api
+          variable.
+        </p>
+      </section>
+      <section class="main-section" id="posting_a_tweet">
+        <header>Posting a Tweet</header>
+        <p>
+          One of the most basic actions you can perform with the Twitter API is
+          posting a tweet. The update_status method is used for this. Here’s how
+          it works:
+        </p>
+        <code
+          >tweet = "Hello, Twitter! I'm using the Twitter API with Tweepy."
+          api.update_status(status=tweet) print("Tweet posted successfully!")
+        </code>
+        <p>
+          This code sends a tweet to your profile. Ensure that the content of
+          the tweet does not exceed Twitter's character limit (currently 280
+          characters). After execution, you will see a confirmation that the
+          tweet has been posted.
+        </p>
+      </section>
+      <section class="main-section" id="searching_for_tweets">
+        <header>Searching for Tweets</header>
+        <p>
+          In addition to posting, you can search for tweets that contain a
+          specific hashtag. tweepy provides a simple way to do this using the
+          search_tweets method. Here’s an example of how to search and display
+          tweets:
+        </p>
+        <code
+          >hashtag = "#Python" tweets = tweepy.Cursor(api.search_tweets,
+          q=hashtag, lang="en").items(10) for tweet in tweets:
+          print(f"{tweet.user.name}: {tweet.text}")
+        </code>
+        <p>
+          In this example, we are searching for the 10 most recent tweets
+          containing the hashtag "#Python". The lang="en" option filters the
+          tweets in English. The Cursor is a convenient way to paginate search
+          results, allowing you to access more tweets if desired.
+        </p>
+      </section>
+      <section class="main-section" id="error_handling">
+        <header>Error Handling</header>
+        <p>
+          When interacting with APIs, it’s crucial to handle potential errors
+          that may occur. tweepy provides an exception called TweepError to
+          capture specific errors from the Twitter API. Here’s an example of how
+          to implement error handling:
+        </p>
+        <code
+          >try: api.update_status(status=tweet) except tweepy.TweepError as e:
+          print("Error posting the tweet:", e) except Exception as e:
+          print("Unexpected error:", str(e))
+        </code>
+        <p>
+          In this example, we attempt to post a tweet and, if a specific API
+          error occurs, we capture and display the error message. Exception
+          handling is essential to ensure your application properly deals with
+          failures.
+        </p>
+      </section>
+      <section class="main-section" id="reference">
+        <header>Reference</header>
+        <p>
+          With these instructions, you should be ready to use the Twitter API
+          with the tweepy library. This API offers a vast range of
+          functionalities, and this guide is just the beginning. For more
+          information, refer to the <a href="https://docs.tweepy.org/en/stable/" rel="external" target="_blank">Tweepy documentation</a> and the <a href="https://developer.x.com/en/docs/x-api" rel="ecternal" target="_blank">Twitter API
+          documentation</a>. Explore and experiment with the various possibilities
+          that the Twitter API has to offer!
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
