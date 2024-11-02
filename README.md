@@ -1,0 +1,1 @@
+technical document like a guide to learn how to use twitter api with tweepy! had to figure it out how to make a fixed menu and it was the first time I used code elements in a project! I was pretty happy how things turned out, espececially with the css :)
